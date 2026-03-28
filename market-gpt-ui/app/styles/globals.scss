@@ -1,41 +1,55 @@
 @import "./animation.scss";
 @import "./window.scss";
 
+/* =========================================================
+   MARKET-GPT ELITE THEME (FORCED DARK PURPLE)
+   FORCES DARK PURPLE REGARDLESS OF THEME SETTINGS
+   =========================================================
+*/
+
 @mixin light {
   --theme: light;
 
-  /* color */
-  --white: white;
-  --black: rgb(48, 48, 48);
-  --gray: rgb(250, 250, 250);
-  --primary: rgb(29, 147, 171);
-  --second: rgb(231, 248, 255);
-  --hover-color: #f3f3f3;
+  /* Market-GPT Purple Theme Colors - Light */
+  --white: #ffffff;
+  --black: #2c3e50;
+  --gray: #f8f9fa;
+  --primary: #7d5fff; /* Deep Purple */
+  --second: #f1f2f6;
+  --hover-color: #efefef;
   --bar-color: rgba(0, 0, 0, 0.1);
   --theme-color: var(--gray);
 
+  /* Glassmorphism Effect - Light */
+  --window-content-bg: rgba(255, 255, 255, 0.8);
+  --sidebar-bg: rgba(241, 242, 246, 0.9);
+
   /* shadow */
-  --shadow: 50px 50px 100px 10px rgb(0, 0, 0, 0.1);
-  --card-shadow: 0px 2px 4px 0px rgb(0, 0, 0, 0.05);
+  --shadow: 0px 20px 50px rgba(125, 95, 255, 0.2);
+  --card-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
 
   /* stroke */
-  --border-in-light: 1px solid rgb(222, 222, 222);
+  --border-in-light: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 @mixin dark {
   --theme: dark;
 
-  /* color */
-  --white: rgb(30, 30, 30);
-  --black: rgb(187, 187, 187);
-  --gray: rgb(21, 21, 21);
-  --primary: rgb(29, 147, 171);
-  --second: rgb(27 38 42);
-  --hover-color: #323232;
+  /* Market-GPT Purple Theme Colors - Dark */
+  --white: #1a1a24; /* Darker navy/purple panel tinted */
+  --black: #ffffff; /* FORCE MAIN TEXT WHITE */
+  --gray: #0c0c12; /* Deepest background color */
+  --primary: #a855f7; /* Brighter purple accent for dark mode visibility */
+  --second: #13131a; /* Darker secondary panel Tint */
+  --hover-color: #2a2a3c;
 
   --bar-color: rgba(255, 255, 255, 0.1);
 
-  --border-in-light: 1px solid rgba(255, 255, 255, 0.192);
+  /* Glassmorphism Effect - Dark */
+  --window-content-bg: rgba(20, 20, 27, 0.7);
+  --sidebar-bg: rgba(26, 26, 38, 0.85);
+
+  --border-in-light: 1px solid rgba(255, 255, 255, 0.1);
 
   --theme-color: var(--gray);
 
@@ -57,7 +71,7 @@
 }
 
 :root {
-  @include light;
+  @include dark; /* Defaulting to Dark mode for the premium look */
 
   --window-width: 90vw;
   --window-height: 90vh;
@@ -89,14 +103,14 @@
 
 html {
   height: var(--full-height);
-
   font-family: "Noto Sans", "SF Pro SC", "SF Pro Text", "SF Pro Icons",
     "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 body {
-  background-color: var(--gray);
-  color: var(--black);
+  /* Glowing Radial Background */
+  background: radial-gradient(circle at top right, #1e1e2e, #14141b);
+  color: #ffffff !important;
   margin: 0;
   padding: 0;
   height: var(--full-height);
@@ -115,6 +129,21 @@ body {
   *:focus-visible {
     outline: none;
   }
+}
+
+/* Background Animated Accent Glow */
+body::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--primary);
+  filter: blur(150px);
+  opacity: 0.15;
+  top: 10%;
+  right: 10%;
+  z-index: -1;
+  pointer-events: none;
 }
 
 ::-webkit-scrollbar {
@@ -398,4 +427,63 @@ pre {
 
 .copyable {
   user-select: text;
+}
+
+/* =========================================================
+   MARKET-GPT CUSTOM TEXT OVERRIDES (PURE WHITE)
+   ========================================================= */
+
+/* 1. Force all standard text elements to be white */
+body, span, p, div, h1, h2, h3, h4, h5, h6, label {
+  color: #ffffff !important;
+}
+
+/* 2. Force Sidebar Titles and Subtitles to be white */
+.sidebar-title, 
+.sidebar-sub-title,
+.chat-item-title, 
+.chat-item-info,
+.chat-item-count,
+.chat-item-date {
+  color: #ffffff !important;
+  opacity: 1 !important; /* Removes any fading */
+}
+
+/* 3. Force the Main Chat Window Header to be white */
+.window-header-title,
+.window-header-sub-title {
+  color: #ffffff !important;
+}
+
+/* 4. Force Inputs, Textareas, and Chat Input to be white */
+input, textarea, select, .chat-input {
+  color: #ffffff !important;
+  background-color: rgba(20, 15, 35, 0.9) !important;
+}
+
+/* 5. Force Buttons to have white text */
+button, .button {
+  color: #ffffff !important;
+}
+
+/* 6. User and Assistant Chat Bubbles text */
+.chat-message-assistant,
+.markdown-body,
+.chat-message-user .chat-message-item,
+.chat-message-user .chat-message-item p,
+.chat-message-user .chat-message-item span,
+.chat-message-user .chat-message-item div {
+  color: #ffffff !important;
+}
+
+/* 7. Ensure links don't blend in (making them a bright purple) */
+a, .markdown-body a {
+  color: #a855f7 !important;
+  text-decoration: underline;
+}
+
+/* 8. Fix the User Chat Bubble Background */
+.chat-message-user .chat-message-item {
+   background-color: rgba(124, 58, 237, 0.2) !important;
+   border: 1px solid rgba(124, 58, 237, 0.4) !important;
 }

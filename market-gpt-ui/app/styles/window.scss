@@ -34,3 +34,9 @@
 .window-action-button:not(:first-child) {
   margin-left: 10px;
 }
+
+.window-content {
+  background-color: var(--window-content-bg);
+  backdrop-filter: blur(20px); /* This creates the glass effect! */
+  -webkit-backdrop-filter: blur(20px);
+}
