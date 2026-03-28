@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -6,6 +8,9 @@ from google.genai import types
 import time
 import json
 import asyncio
+
+# --- LOAD SECURE ENVIRONMENT VARIABLES ---
+load_dotenv()
 
 app = FastAPI()
 
@@ -17,8 +22,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize the Google GenAI client
-client = genai.Client(api_key="AIzaSyAidl-RFyiH_u4w2XW9Uhv_2nRVmFYR7Zc")
+# Initialize the Google GenAI client securely
+# It now looks inside your .env file for "GEMINI_API_KEY"
+secure_api_key = os.getenv("GEMINI_API_KEY")
+client = genai.Client(api_key=secure_api_key)
 
 # --- HACKATHON MAGIC: THE FAKE DATABASE ---
 user_portfolio = {

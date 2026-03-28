@@ -5,3 +5,5 @@ market-gpt-ui/.next/
 market-gpt-backend/__pycache__/
 market-gpt-backend/venv/
 .env
+.env.local
+.env.*
