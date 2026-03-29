@@ -25,7 +25,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAlerts = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/scanner');
+        const response = await fetch('http://127.0.0.1:8001/api/scanner');
         const data = await response.json();
         
         if (data && data.length > 0) {
@@ -33,7 +33,7 @@ const Dashboard = () => {
           setIsScanning(false);
         }
       } catch (error) {
-        console.error("Backend Error: Check if main.py is running on port 8000", error);
+        console.error("Backend Error: Check if main.py is running on port 8001", error);
       }
     };
 
@@ -96,77 +96,83 @@ const Dashboard = () => {
              </div>
           </div>
 
-  {/* --- AI SCANNER CARD --- */}
-<div className="bg-[#0a0c12] border border-zinc-800 rounded-[2.5rem] p-6 shadow-2xl relative overflow-hidden text-left min-h-70 flex flex-col justify-center">
-  <div className="absolute -top-12 -right-12 w-32 h-32 bg-indigo-600/5 blur-[80px] rounded-full"></div>
-  
-  <div className="flex items-center justify-between mb-4 relative z-10">
-    <div className="flex items-center gap-3">
-      <div className="p-2 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
-        <Radar className="text-indigo-400 animate-pulse" size={20} />
-      </div>
-      <div>
-        <h3 className="text-lg font-bold text-white tracking-tight">AI Autonomous Intel</h3>
-        <p className="text-[10px] text-zinc-500 font-medium">Scanning live market news...</p>
-      </div>
-    </div>
-    <div className="flex items-center gap-2 bg-zinc-900/50 px-3 py-1 rounded-full border border-zinc-800 shadow-inner">
-      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
-      <span className="text-[9px] text-zinc-300 font-black uppercase tracking-widest">LIVE SCAN</span>
-    </div>
-  </div>
-
-  <div className="relative z-10">
-    {currentTrend ? (
-      <div className="animate-in fade-in slide-in-from-right duration-700">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h2 className="text-4xl font-black text-white tracking-tighter uppercase leading-none">{currentTrend.ticker}</h2>
-            <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase mt-3 inline-block tracking-widest ${
-              currentTrend.pattern === 'BULLISH' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-red-400 bg-red-500/10 border-red-500/20'
-            }`}>
-              {currentTrend.pattern}
-            </span>
-          </div>
-          <div className="text-right">
-            <p className="text-[8px] text-zinc-500 font-black tracking-widest uppercase mb-1">AI Confidence</p>
-            <div className="flex items-center gap-2 justify-end">
-              <p className="text-emerald-500 font-black text-2xl">{currentTrend.success_rate}</p>
-              <div className="flex gap-1 items-end h-4">
-                <div className="w-1 bg-emerald-500/40 h-1.5 animate-bounce"></div>
-                <div className="w-1 bg-emerald-500 h-3 animate-bounce [animation-delay:0.2s]"></div>
-                <div className="w-1 bg-emerald-500/40 h-2 animate-bounce [animation-delay:0.4s]"></div>
+          {/* --- AI SCANNER CARD --- */}
+          <div className="bg-[#0a0c12] border border-zinc-800 rounded-[2.5rem] p-6 shadow-2xl relative overflow-hidden text-left min-h-70 flex flex-col justify-center">
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-indigo-600/5 blur-[80px] rounded-full"></div>
+            
+            <div className="flex items-center justify-between mb-4 relative z-10">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+                  <Radar className="text-indigo-400 animate-pulse" size={20} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white tracking-tight">AI Autonomous Intel</h3>
+                  <p className="text-[10px] text-zinc-500 font-medium">Scanning live market news...</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 bg-zinc-900/50 px-3 py-1 rounded-full border border-zinc-800 shadow-inner">
+                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></div>
+                <span className="text-[9px] text-zinc-300 font-black uppercase tracking-widest">LIVE SCAN</span>
               </div>
             </div>
-          </div>
-        </div>
-        
-        {/* SIMPLE ENGLISH INSIGHT */}
-        <p className="text-zinc-400 text-sm italic border-l-2 border-indigo-600 pl-4 mt-2 leading-relaxed">
-          "{currentTrend.explanation}"
-        </p>
 
-        {/* DOTS INDICATOR */}
-        <div className="flex gap-1.5 mt-6 justify-start">
-          {scannerAlerts.map((_, i) => (
-            <div key={i} className={`h-1 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 bg-indigo-500' : 'w-1.5 bg-zinc-800'}`}></div>
-          ))}
-        </div>
-      </div>
-    ) : (
-      <div className="py-8 text-center">
-        <p className="text-zinc-600 text-xs font-bold uppercase tracking-[0.2em] animate-pulse">Scanning Trends...</p>
-      </div>
-    )}
-  </div>
-</div>
+            <div className="relative z-10">
+              {currentTrend ? (
+                <div className="animate-in fade-in slide-in-from-right duration-700">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h2 className="text-4xl font-black text-white tracking-tighter uppercase leading-none">{currentTrend.ticker}</h2>
+                      <span className={`text-[9px] font-bold px-2 py-0.5 rounded border uppercase mt-3 inline-block tracking-widest ${
+                        currentTrend.pattern === 'BULLISH' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' : 'text-red-400 bg-red-500/10 border-red-500/20'
+                      }`}>
+                        {currentTrend.pattern}
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[8px] text-zinc-500 font-black tracking-widest uppercase mb-1">AI Confidence</p>
+                      <div className="flex items-center gap-2 justify-end">
+                        <p className="text-emerald-500 font-black text-2xl">{currentTrend.success_rate}</p>
+                        <div className="flex gap-1 items-end h-4">
+                          <div className="w-1 bg-emerald-500/40 h-1.5 animate-bounce"></div>
+                          <div className="w-1 bg-emerald-500 h-3 animate-bounce [animation-delay:0.2s]"></div>
+                          <div className="w-1 bg-emerald-500/40 h-2 animate-bounce [animation-delay:0.4s]"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* SIMPLE ENGLISH INSIGHT */}
+                  <p className="text-zinc-400 text-sm italic border-l-2 border-indigo-600 pl-4 mt-2 leading-relaxed">
+                    "{currentTrend.explanation}"
+                  </p>
+
+                  {/* DOTS INDICATOR */}
+                  <div className="flex gap-1.5 mt-6 justify-start">
+                    {scannerAlerts.map((_, i) => (
+                      <div key={i} className={`h-1 rounded-full transition-all duration-500 ${i === currentIndex ? 'w-8 bg-indigo-500' : 'w-1.5 bg-zinc-800'}`}></div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="py-8 text-center">
+                  <p className="text-zinc-600 text-xs font-bold uppercase tracking-[0.2em] animate-pulse">Scanning Trends...</p>
+                </div>
+              )}
+            </div>
+          </div>
+          
           {/* LOWER SECTION */}
           <div className="bg-linear-to-r from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 p-8 rounded-3xl flex items-center justify-between group shadow-xl">
              <div className="space-y-2 text-left">
                 <h3 className="text-xl font-bold text-white flex items-center gap-2"><MessageSquare className="text-indigo-400" /> Market GPT</h3>
                 <p className="text-sm text-zinc-400">Ask about any stock or market event. Powered by Gemini.</p>
              </div>
-             <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-2xl font-bold text-sm shadow-lg shadow-indigo-600/20 transition-all active:scale-95">Start Chatting</button>
+             
+             {/* THE CHAT REDIRECT LINK IS ADDED HERE */}
+             <a href="http://localhost:3000/#/chat">
+               <button className="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-2xl font-bold text-sm shadow-lg shadow-indigo-600/20 transition-all active:scale-95">Start Chatting</button>
+             </a>
+             
           </div>
 
           <div className="bg-[#0a0c12] border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl text-left">
