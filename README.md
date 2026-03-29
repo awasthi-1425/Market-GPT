@@ -1,6 +1,6 @@
 # 📈 MarketGPT: Context-Aware AI for Indian Retail Investors
 
-![MarketGPT Banner](https://via.placeholder.com/1200x400?text=MarketGPT+Dashboard) *(Note: Replace this link with a screenshot of your dashboard)*
+
 
 MarketGPT is an elite, autonomous financial intelligence platform tailored for the Indian stock market. It goes beyond generic AI chatbots by directly integrating with a user's live brokerage portfolio, offering highly contextual, institutional-grade market insights and real-time trend scanning.
 
