@@ -1,0 +1,489 @@
+@import "./animation.scss";
+@import "./window.scss";
+
+/* =========================================================
+   MARKET-GPT ELITE THEME (FORCED DARK PURPLE)
+   FORCES DARK PURPLE REGARDLESS OF THEME SETTINGS
+   =========================================================
+*/
+
+@mixin light {
+  --theme: light;
+
+  /* Market-GPT Purple Theme Colors - Light */
+  --white: #ffffff;
+  --black: #2c3e50;
+  --gray: #f8f9fa;
+  --primary: #7d5fff; /* Deep Purple */
+  --second: #f1f2f6;
+  --hover-color: #efefef;
+  --bar-color: rgba(0, 0, 0, 0.1);
+  --theme-color: var(--gray);
+
+  /* Glassmorphism Effect - Light */
+  --window-content-bg: rgba(255, 255, 255, 0.8);
+  --sidebar-bg: rgba(241, 242, 246, 0.9);
+
+  /* shadow */
+  --shadow: 0px 20px 50px rgba(125, 95, 255, 0.2);
+  --card-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+
+  /* stroke */
+  --border-in-light: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@mixin dark {
+  --theme: dark;
+
+  /* Market-GPT Purple Theme Colors - Dark */
+  --white: #1a1a24; /* Darker navy/purple panel tinted */
+  --black: #ffffff; /* FORCE MAIN TEXT WHITE */
+  --gray: #0c0c12; /* Deepest background color */
+  --primary: #a855f7; /* Brighter purple accent for dark mode visibility */
+  --second: #13131a; /* Darker secondary panel Tint */
+  --hover-color: #2a2a3c;
+
+  --bar-color: rgba(255, 255, 255, 0.1);
+
+  /* Glassmorphism Effect - Dark */
+  --window-content-bg: rgba(20, 20, 27, 0.7);
+  --sidebar-bg: rgba(26, 26, 38, 0.85);
+
+  --border-in-light: 1px solid rgba(255, 255, 255, 0.1);
+
+  --theme-color: var(--gray);
+
+  div:not(.no-dark) > svg {
+    filter: invert(0.5);
+  }
+}
+
+.light {
+  @include light;
+}
+
+.dark {
+  @include dark;
+}
+
+.mask {
+  filter: invert(0.8);
+}
+
+:root {
+  @include dark; /* Defaulting to Dark mode for the premium look */
+
+  --window-width: 90vw;
+  --window-height: 90vh;
+  --sidebar-width: 300px;
+  --window-content-width: calc(100% - var(--sidebar-width));
+  --message-max-width: 80%;
+  --full-height: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --window-width: 100vw;
+    --window-height: var(--full-height);
+    --sidebar-width: 100vw;
+    --window-content-width: var(--window-width);
+    --message-max-width: 100%;
+  }
+
+  .no-mobile {
+    display: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark;
+  }
+}
+
+html {
+  height: var(--full-height);
+  font-family: "Noto Sans", "SF Pro SC", "SF Pro Text", "SF Pro Icons",
+    "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+body {
+  /* Glowing Radial Background */
+  background: radial-gradient(circle at top right, #1e1e2e, #14141b);
+  color: #ffffff !important;
+  margin: 0;
+  padding: 0;
+  height: var(--full-height);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  touch-action: pan-x pan-y;
+  overflow: hidden;
+
+  @media only screen and (max-width: 600px) {
+    background-color: var(--second);
+  }
+
+  *:focus-visible {
+    outline: none;
+  }
+}
+
+/* Background Animated Accent Glow */
+body::before {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--primary);
+  filter: blur(150px);
+  opacity: 0.15;
+  top: 10%;
+  right: 10%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+::-webkit-scrollbar {
+  --bar-width: 10px;
+  width: var(--bar-width);
+  height: var(--bar-width);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--bar-color);
+  border-radius: 20px;
+  background-clip: content-box;
+  border: 1px solid transparent;
+}
+
+select {
+  border: var(--border-in-light);
+  padding: 10px;
+  border-radius: 10px;
+  appearance: none;
+  cursor: pointer;
+  background-color: var(--white);
+  color: var(--black);
+  text-align: center;
+}
+
+label {
+  cursor: pointer;
+}
+
+input {
+  text-align: center;
+  font-family: inherit;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  background-color: var(--white);
+  color: var(--black);
+  appearance: none;
+  border: var(--border-in-light);
+  border-radius: 5px;
+  height: 16px;
+  width: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="checkbox"]:checked::after {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  content: " ";
+  border-radius: 2px;
+}
+
+input[type="range"] {
+  appearance: none;
+  background-color: var(--white);
+  color: var(--black);
+}
+
+@mixin thumb() {
+  appearance: none;
+  height: 8px;
+  width: 20px;
+  background-color: var(--primary);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all ease 0.3s;
+  margin-left: 5px;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @include thumb();
+}
+
+input[type="range"]::-moz-range-thumb {
+  @include thumb();
+}
+
+input[type="range"]::-ms-thumb {
+  @include thumb();
+}
+
+@mixin thumbHover() {
+  transform: scaleY(1.2);
+  width: 24px;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  @include thumbHover();
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  @include thumbHover();
+}
+
+input[type="range"]::-ms-thumb:hover {
+  @include thumbHover();
+}
+
+input[type="number"],
+input[type="text"],
+input[type="password"] {
+  appearance: none;
+  border-radius: 10px;
+  border: var(--border-in-light);
+  min-height: 36px;
+  box-sizing: border-box;
+  background: var(--white);
+  color: var(--black);
+  padding: 0 10px;
+  max-width: 50%;
+  font-family: inherit;
+}
+
+div.math {
+  overflow-x: auto;
+}
+
+.modal-mask {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: var(--full-height);
+  width: 100vw;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    align-items: flex-end;
+  }
+}
+
+.link {
+  font-size: 12px;
+  color: var(--primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+pre {
+  position: relative;
+  
+  &:hover .copy-code-button {
+    pointer-events: all;
+    transform: translateX(0px);
+    opacity: 0.5;
+  }
+
+  .copy-code-button {
+    position: absolute;
+    right: 10px;
+    top: 1em;
+    cursor: pointer;
+    padding: 0px 5px;
+    background-color: var(--black);
+    color: var(--white);
+    border: var(--border-in-light);
+    border-radius: 10px;
+    transform: translateX(10px);
+    pointer-events: none;
+    opacity: 0;
+    transition: all ease 0.3s;
+
+    &:after {
+      content: "copy";
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+pre {
+  .show-hide-button {
+    border-radius: 10px;
+    position: absolute;
+    inset: 0 0 auto 0;
+    width: 100%;
+    margin: auto;
+    height: fit-content;
+    display: inline-flex;
+    justify-content: center;
+    pointer-events: none;
+    button{
+      pointer-events: auto;
+      margin-top: 3em;
+      margin-bottom: 4em;
+      padding: 5px 16px;
+      border: 0;
+      cursor: pointer;
+      border-radius: 14px;
+      text-align: center;
+      color: white;
+      background: #464e4e;
+    } 
+  }
+  
+  .expanded {
+    background-image: none;
+  }
+  .collapsed {
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.06));
+  }
+}
+
+.clickable {
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
+  &:focus {
+    filter: brightness(0.95);
+  }
+}
+
+.error {
+  width: 80%;
+  border-radius: 20px;
+  border: var(--border-in-light);
+  box-shadow: var(--card-shadow);
+  padding: 20px;
+  overflow: auto;
+  background-color: var(--white);
+  color: var(--black);
+
+  pre {
+    overflow: auto;
+  }
+}
+
+.password-input-container {
+  max-width: 50%;
+  display: flex;
+  justify-content: flex-end;
+
+  .password-eye {
+    margin-right: 4px;
+  }
+
+  .password-input {
+    min-width: 80%;
+  }
+}
+
+.user-avatar {
+  height: 30px;
+  min-height: 30px;
+  width: 30px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-in-light);
+  box-shadow: var(--card-shadow);
+  border-radius: 11px;
+}
+
+.one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.copyable {
+  user-select: text;
+}
+
+/* =========================================================
+   MARKET-GPT CUSTOM TEXT OVERRIDES (PURE WHITE)
+   ========================================================= */
+
+/* 1. Force all standard text elements to be white */
+body, span, p, div, h1, h2, h3, h4, h5, h6, label {
+  color: #ffffff !important;
+}
+
+/* 2. Force Sidebar Titles and Subtitles to be white */
+.sidebar-title, 
+.sidebar-sub-title,
+.chat-item-title, 
+.chat-item-info,
+.chat-item-count,
+.chat-item-date {
+  color: #ffffff !important;
+  opacity: 1 !important; /* Removes any fading */
+}
+
+/* 3. Force the Main Chat Window Header to be white */
+.window-header-title,
+.window-header-sub-title {
+  color: #ffffff !important;
+}
+
+/* 4. Force Inputs, Textareas, and Chat Input to be white */
+input, textarea, select, .chat-input {
+  color: #ffffff !important;
+  background-color: rgba(20, 15, 35, 0.9) !important;
+}
+
+/* 5. Force Buttons to have white text */
+button, .button {
+  color: #ffffff !important;
+}
+
+/* 6. User and Assistant Chat Bubbles text */
+.chat-message-assistant,
+.markdown-body,
+.chat-message-user .chat-message-item,
+.chat-message-user .chat-message-item p,
+.chat-message-user .chat-message-item span,
+.chat-message-user .chat-message-item div {
+  color: #ffffff !important;
+}
+
+/* 7. Ensure links don't blend in (making them a bright purple) */
+a, .markdown-body a {
+  color: #a855f7 !important;
+  text-decoration: underline;
+}
+
+/* 8. Fix the User Chat Bubble Background */
+.chat-message-user .chat-message-item {
+   background-color: rgba(124, 58, 237, 0.2) !important;
+   border: 1px solid rgba(124, 58, 237, 0.4) !important;
+}

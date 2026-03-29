@@ -1,0 +1,9 @@
+node_modules/
+.next/
+market-gpt-ui/node_modules/
+market-gpt-ui/.next/
+market-gpt-backend/__pycache__/
+market-gpt-backend/venv/
+.env
+.env.local
+.env.*
