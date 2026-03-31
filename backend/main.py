@@ -91,3 +91,7 @@ async def get_market_trends():
             {"ticker": "TATA MOTORS", "explanation": "Positive sentiment continues due to strong EV sales data.", "pattern": "BULLISH", "success_rate": "90%"},
             {"ticker": "INFY", "explanation": "Stock trading near resistance, cautious approach advised.", "pattern": "BEARISH", "success_rate": "74%"}
         ]
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
